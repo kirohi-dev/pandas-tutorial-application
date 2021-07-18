@@ -1,16 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
-import logo from './logo.svg';
-import './App.css';
-import { textbookUseCases, answerUseCases, problemUseCases, hintUseCases } from './di';
+import styled from 'styled-components';
+
+import { MainHeader } from './components/header/MainHeader'
+
+import { ContentHeight } from './themes/height'
+
+import { textbookUseCases, problemUseCases, hintUseCases } from './di';
 import { useHintsState } from './hooks/hintRecoil'
 import { ProblemDTO } from './usecases/problem/dtos/ProblemDTO'
 import { TextbookDTO } from './usecases/textbook/dtos/TextbookDTO'
 
-console.log(textbookUseCases.readTextbooksUseCase.readTextbook())
-console.log(answerUseCases.readAnswersUseCase.readAnswers())
-console.log(problemUseCases.readProblemsUseCase.readProblems())
-console.log(hintUseCases.readHintsUseCase.readHints())
+const contentCalculation = `100vh - ${ContentHeight.headerHeight}`
+
+const Wrapper = styled.div``;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  background-color: gray;
+`;
+
+const EditorWrapper = styled.div`
+  height: calc(${contentCalculation});
+  width: 50%;
+  background-color: black;
+`;
+
+const ProblemWrapper = styled.div`
+  height: calc(${contentCalculation});
+  width: 25%;
+  background-color: pink;
+`;
+
+const TeachWrapper = styled.div`
+  width: 25%;
+`;
+
+const TextbookWrapper = styled.div`
+  height: calc((${contentCalculation}) / 2);
+  background-color: blue; 
+`;
+
+const HintWrapper = styled.div`
+  height: calc((${contentCalculation}) / 2);
+  background-color: red;
+`;
 
 const App: React.FC = () => {
   const [hints, setHints] = useHintsState();
@@ -32,32 +66,17 @@ const App: React.FC = () => {
 
 
   return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          {hints[0] && (
-            <p>{hints[0].id}</p>
-          )}
-          {hints.length && hints.map((hint) => (
-            <div key={hint.id}>
-              <p >{hint.id}</p>
-              <p>{hint.page}</p>
-              <p>{hint.problemId}</p>
-            </div>
-          ))}
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Wrapper>
+        <MainHeader />
+        <ContentWrapper>
+          <ProblemWrapper></ProblemWrapper>
+          <EditorWrapper></EditorWrapper>
+          <TeachWrapper>
+            <TextbookWrapper></TextbookWrapper>
+            <HintWrapper></HintWrapper>
+          </TeachWrapper>
+        </ContentWrapper>
+      </Wrapper>
   );
 }
 
