@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
 import styled from 'styled-components';
+import monaco from 'monaco-editor';
 
 import { MainHeader } from './components/header/MainHeader'
 
@@ -46,6 +47,8 @@ const HintWrapper = styled.div`
   background-color: red;
 `;
 
+const editor = <div />;
+
 const App: React.FC = () => {
   const [hints, setHints] = useHintsState();
 
@@ -70,7 +73,9 @@ const App: React.FC = () => {
         <MainHeader />
         <ContentWrapper>
           <ProblemWrapper></ProblemWrapper>
-          <EditorWrapper></EditorWrapper>
+          <EditorWrapper>
+            <div id="editor" />
+          </EditorWrapper>
           <TeachWrapper>
             <TextbookWrapper></TextbookWrapper>
             <HintWrapper></HintWrapper>
