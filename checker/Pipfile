@@ -4,8 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+fastapi = "*"
+uvicorn = "*"
 
 [dev-packages]
+autopep8 = "*"
+flake8 = "*"
+isort = "*"
 
 [requires]
 python_version = "3.9"
