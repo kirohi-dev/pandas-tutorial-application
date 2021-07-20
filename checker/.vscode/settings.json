@@ -8,6 +8,7 @@
     }
   },
   "python.pythonPath": "${workspaceFolder}/.venv/bin/python",
+  "python.languageServer": "Pylance",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
   "python.linting.pycodestyleEnabled": false,
