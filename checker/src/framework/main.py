@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 
+from ..adapters.controllers.answer import CodeExcuteBody, ConfirmCorrectBody
+from .di import code_excute_controller, confirm_correct_controller
+
 app = FastAPI()
 
 
@@ -9,5 +12,10 @@ def read_root():
 
 
 @app.post("/checker")
-def check_item():
-    return {"item_id": item_id, "q": q}
+def confirm_correct_answer(body: ConfirmCorrectBody):
+    return confirm_correct_controller.invoke(body)
+
+
+@app.post("/exec")
+def code_execute(body: CodeExcuteBody):
+    return code_excute_controller.invoke(body)

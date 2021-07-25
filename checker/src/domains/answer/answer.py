@@ -1,6 +1,3 @@
-from ..domain_exceptions import ConflictException
-
-
 class Answer:
     def __init__(self, answer_id: str, body: str, problem_id: str) -> None:
         self.__answer_id = answer_id
@@ -18,9 +15,6 @@ class Answer:
 
     def confirm_correct_answer(
         self,
-        problem_id: str,
         answer_result: str
     ) -> bool:
-        if (self.__problem_id != problem_id):
-            raise ConflictException
         return self.__body == answer_result

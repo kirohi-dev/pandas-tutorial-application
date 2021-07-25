@@ -1,2 +1,2 @@
-class ConflictException(Exception):
+class CodeExecException(Exception):
     pass
