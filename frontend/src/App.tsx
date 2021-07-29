@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { RecoilRoot } from 'recoil';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset'
 
 import { MainHeader } from './components/header/MainHeader'
 import { Editor } from './components/editor/Editor'
+import { ComponentHeader } from './components/common/ComponentHeader'
 
 import { ContentHeight } from './themes/height'
 
@@ -11,6 +13,8 @@ import { textbookUseCases, problemUseCases, hintUseCases } from './di';
 import { useHintsState } from './hooks/hintRecoil'
 import { ProblemDTO } from './usecases/problem/dtos/ProblemDTO'
 import { TextbookDTO } from './usecases/textbook/dtos/TextbookDTO'
+
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 const contentCalculation = `100vh - ${ContentHeight.headerHeight}`
 
@@ -83,11 +87,27 @@ const App: React.FC = () => {
   );
 }
 
+const GlobalStyle = createGlobalStyle`
+${reset}
+* {
+    box-sizing: border-box;
+}
+ 
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+`
+
 const AppInit: React.FC = () => {
   return (
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
+    <>
+      <RecoilRoot>
+        <GlobalStyle />
+        {/* <App /> */}
+        <ComponentHeader title="test" iconComponent={<LiveHelpIcon />} />
+      </RecoilRoot>
+    </>
   );
 }
 
