@@ -5,36 +5,35 @@ import reset from 'styled-reset'
 
 import { MainHeader } from './components/header/MainHeader'
 import { Editor } from './components/editor/Editor'
-import { ComponentHeader } from './components/common/ComponentHeader'
+import { Problem } from './components/problem/Problem'
+import { Textbook } from './components/textbook/Textbook'
+import { Hint } from './components/hint/Hint'
 
-import { ContentHeight } from './themes/height'
+import { Calculation, ContentHeight } from './themes/height'
+import { Border } from './themes/colors'
 
 import { textbookUseCases, problemUseCases, hintUseCases } from './di';
 import { useHintsState } from './hooks/hintRecoil'
 import { ProblemDTO } from './usecases/problem/dtos/ProblemDTO'
 import { TextbookDTO } from './usecases/textbook/dtos/TextbookDTO'
 
-import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
-const contentCalculation = `100vh - ${ContentHeight.headerHeight}`
-
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+ background-color: ${Border.bdGray};
+`;
 
 const ContentWrapper = styled.div`
   display: flex;
-  background-color: gray;
 `;
 
 const EditorWrapper = styled.div`
-  height: calc(${contentCalculation});
+  height: calc(${Calculation.contentCalculation});
   width: 50%;
-  background-color: black;
 `;
 
 const ProblemWrapper = styled.div`
-  height: calc(${contentCalculation});
+  height: calc(${Calculation.contentCalculation});
   width: 25%;
-  background-color: pink;
 `;
 
 const TeachWrapper = styled.div`
@@ -42,14 +41,18 @@ const TeachWrapper = styled.div`
 `;
 
 const TextbookWrapper = styled.div`
-  height: calc((${contentCalculation}) / 2);
-  background-color: blue; 
+  height: calc((${Calculation.contentCalculation}) / 2);
 `;
 
 const HintWrapper = styled.div`
-  height: calc((${contentCalculation}) / 2);
-  background-color: red;
+  height: calc((${Calculation.contentCalculation}) / 2);
 `;
+
+const VerticalLine = styled.div`
+  background-color: ${Border.bdGray};
+  width: ${ContentHeight.betweenContentHeight};
+  height: calc(${Calculation.contentCalculation});
+`
 
 const App: React.FC = () => {
   const [hints, setHints] = useHintsState();
@@ -74,14 +77,22 @@ const App: React.FC = () => {
       <Wrapper>
         <MainHeader />
         <ContentWrapper>
-          <ProblemWrapper></ProblemWrapper>
+          <VerticalLine />
+          <ProblemWrapper><Problem /></ProblemWrapper>
+          <VerticalLine />
           <EditorWrapper>
             <Editor />
           </EditorWrapper>
+          <VerticalLine />
           <TeachWrapper>
-            <TextbookWrapper></TextbookWrapper>
-            <HintWrapper></HintWrapper>
+            <TextbookWrapper>
+              <Textbook />
+            </TextbookWrapper>
+            <HintWrapper>
+              <Hint />
+            </HintWrapper>
           </TeachWrapper>
+          <VerticalLine />
         </ContentWrapper>
       </Wrapper>
   );
@@ -99,13 +110,13 @@ ${reset}
 }
 `
 
+
 const AppInit: React.FC = () => {
   return (
     <>
       <RecoilRoot>
         <GlobalStyle />
-        {/* <App /> */}
-        <ComponentHeader title="test" iconComponent={<LiveHelpIcon />} />
+        <App />
       </RecoilRoot>
     </>
   );

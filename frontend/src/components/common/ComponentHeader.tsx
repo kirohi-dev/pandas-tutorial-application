@@ -1,18 +1,20 @@
 import React, { ReactChild } from "react";
 import styled from "styled-components";
-import { BuckGrounds, Texts } from '../../themes/colors';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-
+import { BuckGrounds, Texts, Border } from '../../themes/colors';
+import CallMadeIcon from '@material-ui/icons/CallMade';
+import CallReceivedIcon from '@material-ui/icons/CallReceived';
+import { ContentHeight } from '../../themes/height';
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 48px;
-  background-color: ${BuckGrounds.bgGray};
+  height: ${ContentHeight.componentHeaderHeight};
+  background-color: ${BuckGrounds.bgLightGray};
   color: ${Texts.txBlack};
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 5px;
+  border-bottom: 1px ${Border.bdGray} solid;
 `
 
 const RightItem = styled.div`
@@ -23,14 +25,17 @@ const RightItem = styled.div`
 `
 const IconWrapper = styled.div`
   margin: 0 5px;
+  cursor: pointer;
 `
 
 type Props = {
   title: string;
-  iconComponent: ReactChild
+  iconComponent: ReactChild;
+  isOpen: boolean;
+  action: () => void;
 }
 
-export const ComponentHeader: React.FC<Props> = ({title, iconComponent}) => {
+export const ComponentHeader: React.FC<Props> = ({title, iconComponent, action, isOpen}) => {
   return (
     <Wrapper>
       <RightItem>
@@ -39,7 +44,7 @@ export const ComponentHeader: React.FC<Props> = ({title, iconComponent}) => {
         </IconWrapper>
         <div>{title}</div>
       </RightItem>
-      <IconWrapper><OpenInNewIcon /></IconWrapper>
+      <IconWrapper onClick={action}>{isOpen ? <CallReceivedIcon /> : <CallMadeIcon />}</IconWrapper>
     </Wrapper>
   );
 }

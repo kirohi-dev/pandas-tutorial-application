@@ -1,19 +1,38 @@
 import React from "react";
 import styled from "styled-components";
-import { BuckGrounds } from '../../themes/colors';
-
-
+import { Button } from './Button';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
-  background-color: ${BuckGrounds.bgGray}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
-export const ComponentHeader: React.FC = () => {
+const ButtonWrapper = styled.div`
+  width: 100px;
+`
+
+const Counter: React.FC = () => {
+  return (
+    <>
+      1/2
+    </>
+  )
+}
+
+export const Pager: React.FC = () => {
   return (
     <Wrapper>
-      aaaa
+      <ButtonWrapper>
+       <Button innerComponent={<ArrowLeftIcon />} bgColor={'bgGray'} bgHoverColor={'bgFaintGray'} />
+      </ButtonWrapper>
+      <Counter />
+      <ButtonWrapper>
+       <Button innerComponent={<ArrowRightIcon />} bgColor={'bgGray'} bgHoverColor={'bgFaintGray'} />
+      </ButtonWrapper>
     </Wrapper>
   );
 }
