@@ -32,8 +32,10 @@ class CheckerUseCase:
                 answer_result = self.domain_service.excute_answer(
                     answer=answer)
                 # 答えを確認
-                result = entity.confirm_correct_answer(
-                    answer_result=answer_result)
+                correct = self.domain_service.excute_answer(
+                    answer=entity.get_body()
+                )
+                result = answer_result == correct
                 return self.presenter.dispatch(result=result)
             except Exception:
                 _, ms, _ = sys.exc_info()

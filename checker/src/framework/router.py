@@ -1,21 +1,22 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
 
 from ..adapters.controllers.answer import CodeExcuteBody, ConfirmCorrectBody
 from .di import code_excute_controller, confirm_correct_controller
 
-app = FastAPI()
+
+router = APIRouter()
 
 
-@app.get("/")
+@router.get("/")
 def read_root():
     return {"Hello": "World"}
 
 
-@app.post("/checker")
+@router.post("/checker")
 def confirm_correct_answer(body: ConfirmCorrectBody):
     return confirm_correct_controller.invoke(body)
 
 
-@app.post("/exec")
+@router.post("/exec")
 def code_execute(body: CodeExcuteBody):
     return code_excute_controller.invoke(body)

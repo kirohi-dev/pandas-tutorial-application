@@ -22,6 +22,7 @@ class CodeExcuteUseCase:
             # コード実行
             answer_result = self.domain_service.excute_answer(
                 answer=answer)
+            print(answer_result)
             return self.presenter.dispatch(success=True, result=answer_result)
         except Exception:
             _, ms, _ = sys.exc_info()
