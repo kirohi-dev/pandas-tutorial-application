@@ -72,13 +72,15 @@ const App: React.FC = () => {
     fetchFunc()
   }, [])
 
+  console.log(problems);
+
 
   return (
       <Wrapper>
         <MainHeader />
         <ContentWrapper>
           <VerticalLine />
-          <ProblemWrapper><Problem /></ProblemWrapper>
+          <ProblemWrapper><Problem body={problems[0].body}/></ProblemWrapper>
           <VerticalLine />
           <EditorWrapper>
             <Editor />

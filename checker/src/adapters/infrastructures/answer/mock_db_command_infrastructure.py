@@ -129,6 +129,22 @@ join_data['payment_month'] = join_data['payment_date'].dt.strftime("%Y%m")
 
 print(join_data.groupby(['payment_month','item_name']).sum()[['price', 'quantity']].head())''',
                 "problem_id": '7'
+            },
+            {
+                "answer_id": '8',
+                "body": '''import pandas as pb
+
+
+uriage = pb.read_csv('../csvs/uriage.csv')
+
+a = uriage['item_name']
+a = uriage[['item_name']]
+
+uriage['item_name'] = uriage['item_name'].str.upper()
+uriage['item_name']  = uriage['item_name'].str.replace('　', '')
+uriage['item_name']  = uriage['item_name'].str.replace(' ', '')
+print(len(pb.unique(uriage.item_name)))''',
+                "problem_id": '8'
             }
         ]
         answer_db_response: Optional[AnswerDbResponse] = next(
