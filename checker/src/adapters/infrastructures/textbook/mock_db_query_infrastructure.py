@@ -9,134 +9,35 @@ class MockDbQueryInfrastructure(TextbookQueryRepository):
     def read(self, problem_id: str) -> TextbookDTO:
         mock_problem_db_responses: List[TextbookDTO] = [
             {
-                "body": '''import pandas as pd
-detail = pd.read_csv('../csvs/detail.csv')
-tran = pd.read_csv('../csvs/transaction.csv')
-join_data = pd.merge(detail, transaction, on='transaction_id', how='left')
-print(join_data.head())''',
+                "body": '''https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
+https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html''',
                 "problem_id": '1'
             },
             {
-                "body": '''import pandas as pd
-detail = pd.read_csv('../csvs/detail.csv')
-transaction = pd.read_csv('../csvs/transaction.csv')
-cust = pd.read_csv('../csvs/customer_master.csv')
-item = pd.read_csv('../csvs/item_master.csv')
-join_data = pd.merge(detail, transaction, on='transaction_id', how='left')
-join_data = pd.merge(join_data, cust, on='customer_id', how='left')
-join_data = pd.merge(join_data, item, on='item_id', how='left')
-print(join_data.head())''',
+                "body": '''https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
+https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html''',
                 "problem_id": '2'
             },
             {
-                "body": '''import pandas as pd
-detail = pd.read_csv('../csvs/detail.csv')
-transaction = pd.read_csv('../csvs/transaction.csv')
-cust = pd.read_csv('../csvs/customer_master.csv')
-item = pd.read_csv('../csvs/item_master.csv')
-join_data = pd.merge(detail, transaction, on='transaction_id', how='left')
-join_data = pd.merge(join_data, cust, on='customer_id', how='left')
-join_data = pd.merge(join_data, item, on='item_id', how='left')
-print(join_data.head())''',
+                "body": '''https://pandas.pydata.org/docs/user_guide/basics.html#accelerated-operations
+https://pandas.pydata.org/docs/user_guide/10min.html#categoricals''',
                 "problem_id": '3'
             },
             {
-                "body": '''import pandas as pd
-
-detail = pd.read_csv('../csvs/detail.csv')
-transaction = pd.read_csv('../csvs/transaction.csv')
-cust = pd.read_csv('../csvs/customer_master.csv')
-item = pd.read_csv('../csvs/item_master.csv')
-
-join_data = pd.merge(detail, transaction, on='transaction_id', how='left')
-join_data = pd.merge(join_data, cust, on='customer_id', how='left')
-join_data = pd.merge(join_data, item, on='item_id', how='left')
-
-join_data['price'] = join_data['quantity'] * join_data['item_price']
-
-print(join_data[['quantity', 'item_price', 'price']].head())''',
+                "body": '''https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html
+https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior''',
                 "problem_id": '4'
             },
             {
-                "body": '''import pandas as pd
-
-detail = pd.read_csv('../csvs/detail.csv')
-transaction = pd.read_csv('../csvs/transaction.csv')
-cust = pd.read_csv('../csvs/customer_master.csv')
-item = pd.read_csv('../csvs/item_master.csv')
-
-join_data = pd.merge(detail, transaction, on='transaction_id', how='left')
-join_data = pd.merge(join_data, cust, on='customer_id', how='left')
-join_data = pd.merge(join_data, item, on='item_id', how='left')
-
-join_data['price'] = join_data['quantity'] * join_data['item_price']
-
-join_data['payment_date'] = pd.to_datetime(join_data['payment_date'])
-join_data['payment_month'] = join_data['payment_date'].dt.strftime("%Y%m")
-
-print(join_data[['payment_date', 'payment_month']].head())''',
+                "body": '''https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.sum.html''',
                 "problem_id": '5'
             },
             {
-                "body": '''import pandas as pd
-
-detail = pd.read_csv('../csvs/detail.csv')
-transaction = pd.read_csv('../csvs/transaction.csv')
-cust = pd.read_csv('../csvs/customer_master.csv')
-item = pd.read_csv('../csvs/item_master.csv')
-
-join_data = pd.merge(detail, transaction, on='transaction_id', how='left')
-join_data = pd.merge(join_data, cust, on='customer_id', how='left')
-join_data = pd.merge(join_data, item, on='item_id', how='left')
-
-join_data['price'] = join_data['quantity'] * join_data['item_price']
-
-join_data['payment_date'] = pd.to_datetime(join_data['payment_date'])
-join_data['payment_month'] = join_data['payment_date'].dt.strftime("%Y%m")
-
-print(join_data.groupby('payment_month').sum()[['price']])''',
+                "body": '''https://pandas.pydata.org/docs/reference/api/pandas.Series.str.upper.html
+https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.replace.html''',
                 "problem_id": '6'
-            },
-            {
-                "body": '''import pandas as pd
-
-detail = pd.read_csv('../csvs/detail.csv')
-transaction = pd.read_csv('../csvs/transaction.csv')
-cust = pd.read_csv('../csvs/customer_master.csv')
-item = pd.read_csv('../csvs/item_master.csv')
-
-join_data = pd.merge(detail, transaction, on='transaction_id', how='left')
-
-join_data = pd.merge(join_data, cust, on='customer_id', how='left')
-
-
-
-join_data = pd.merge(join_data, item, on='item_id', how='left')
-
-
-
-join_data['price'] = join_data['quantity'] * join_data['item_price']
-
-join_data['payment_date'] = pd.to_datetime(join_data['payment_date'])
-join_data['payment_month'] = join_data['payment_date'].dt.strftime("%Y%m")
-
-print(join_data.groupby(['payment_month','item_name']).sum()[['price', 'quantity']].head())''',
-                "problem_id": '7'
-            },
-            {
-                "body": '''import pandas as pb
-
-
-uriage = pb.read_csv('../csvs/uriage.csv')
-
-a = uriage['item_name']
-a = uriage[['item_name']]
-
-uriage['item_name'] = uriage['item_name'].str.upper()
-uriage['item_name']  = uriage['item_name'].str.replace('　', '')
-uriage['item_name']  = uriage['item_name'].str.replace(' ', '')
-print(len(pb.unique(uriage.item_name)))''',
-                "problem_id": '8'
             }
         ]
         problem_db_response = next(
