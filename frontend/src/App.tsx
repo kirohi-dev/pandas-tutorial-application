@@ -104,7 +104,7 @@ const App: React.FC = () => {
         </ProblemWrapper>
           <VerticalLine />
           <EditorWrapper>
-            <Editor />
+            <Editor counter={counter}/>
           </EditorWrapper>
           <VerticalLine />
           <TeachWrapper>

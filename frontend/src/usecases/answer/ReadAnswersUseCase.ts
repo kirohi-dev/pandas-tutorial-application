@@ -1,4 +1,5 @@
-import { AnswerDTO } from './dtos/AnswerDTO'
+import { CheckerDTO } from './dtos/CheckerDTO'
+import { ExecDTO } from './dtos/ExecDTO'
 import { AnswerQueryRepository } from './AnswerQueryRepository';
 
 export class ReadAnswersUseCase {
@@ -7,8 +8,14 @@ export class ReadAnswersUseCase {
   constructor(repository: AnswerQueryRepository) {
     this.repository = repository;
   }
-  async readAnswers(): Promise<Array<AnswerDTO>> {
-    const problems = await this.repository.readAnswers();
-    return problems;
+
+  async checker(answerId: string, body: string): Promise<CheckerDTO> {
+    const result = await this.repository.checker(answerId, body);
+    return result;
+  }
+
+  async exec(body: string): Promise<ExecDTO> {
+    const result = await this.repository.exec(body);
+    return result;
   }
 }

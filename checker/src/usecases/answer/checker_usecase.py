@@ -23,6 +23,8 @@ class CheckerUseCase:
     ) -> CheckerDTO:
         # answerの取得
         try:
+            print(answer_id)
+            print(answer)
             entity = self.repository.read(answer_id=answer_id)
         except Exception:
             raise self.presenter.read_exception()

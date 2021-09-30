@@ -12,7 +12,7 @@ class MockDbCommandInfrastructure(AnswerRepository):
                 "answer_id": '1',
                 "body": '''import pandas as pd
 detail = pd.read_csv('../csvs/detail.csv')
-tran = pd.read_csv('../csvs/transaction.csv')
+transaction = pd.read_csv('../csvs/transaction.csv')
 join_data = pd.merge(detail, transaction, on='transaction_id', how='left')
 print(join_data.head())''',
                 "problem_id": '1'

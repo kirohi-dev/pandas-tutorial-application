@@ -8,6 +8,7 @@ import { useCodeState } from '../../hooks/codeRecoil'
 import { ComponentHeader } from '../common/ComponentHeader';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import { EditorFooter } from './EditorFooter';
+import { answerUseCases } from '../../di';
 
 type WrapperProps = {
   isOpen: boolean;
@@ -48,9 +49,11 @@ const MonacoWrapper = styled.div<MonacoWrapperProps>`
   }
 `;
 
+interface IEditor {
+  counter: number
+}
 
-
-export const Editor: React.FC = () => {
+export const Editor: React.FC<IEditor> = (props) => {
   const parent = useRef<HTMLDivElement>(null);
   const [editorState, setEditorState] = useState<undefined | monaco.editor.IStandaloneCodeEditor>();
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -69,6 +72,22 @@ export const Editor: React.FC = () => {
   const onChange: ChangeHandler = (newValue, e) => {
     console.log('onChange', newValue, e);
     setCode(newValue)
+  }
+
+  const checker = () => {
+    answerUseCases.readAnswersUseCase.checker(String(props.counter), code).then((v) => {
+      alert(JSON.stringify(v))
+    }).catch((e) => {
+      alert(JSON.stringify(e))
+    })
+  }
+
+  const exec = () => {
+    answerUseCases.readAnswersUseCase.exec(code).then((v) => {
+      alert(JSON.stringify(v))
+    }).catch((e) => {
+      JSON.stringify(e)
+    })
   }
 
   return (
@@ -94,7 +113,11 @@ export const Editor: React.FC = () => {
               editorDidMount={editorDidMount}
             />
           </MonacoWrapper>
-          <EditorFooter  key="footer"/>
+          <EditorFooter
+            key="footer"
+            exec={exec}
+            checker={checker}
+          />
         </ReactResizeDetector>
     </Wrapper>
   );

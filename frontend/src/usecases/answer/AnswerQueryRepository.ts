@@ -1,5 +1,7 @@
-import { AnswerDTO } from './dtos/AnswerDTO';
+import { CheckerDTO } from './dtos/CheckerDTO';
+import { ExecDTO } from './dtos/ExecDTO';
 
 export interface AnswerQueryRepository {
-  readAnswers(): Promise<Array<AnswerDTO>>;
+  checker(answerId: string, body: string): Promise<CheckerDTO>;
+  exec(body: string): Promise<ExecDTO>;
 }

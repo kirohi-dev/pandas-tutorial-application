@@ -36,13 +36,18 @@ const Answer: React.FC = () => {
   )
 }
 
-export const EditorFooter: React.FC = () => {
+interface IEditorFooter {
+  exec: VoidFunction;
+  checker: VoidFunction;
+}
+
+export const EditorFooter: React.FC<IEditorFooter> = (props) => {
   return (
     <Wrapper>
-      <ButtonWrapper>
+      <ButtonWrapper onClick={props.exec}>
        <Button innerComponent={<Execute />} bgColor={'bgBlue'} bgHoverColor={'bgLightBlue'} />
       </ButtonWrapper>
-      <ButtonWrapper>
+      <ButtonWrapper onClick={props.checker}>
        <Button innerComponent={<Answer />} bgColor={'bgDeepPurple'} bgHoverColor={'bgLightPurple'} />
       </ButtonWrapper>
     </Wrapper>
