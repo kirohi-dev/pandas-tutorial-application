@@ -1,5 +1,5 @@
 import { HintDTO } from './dtos/HintDTO';
 
 export interface HintQueryRepository {
-  readHints(): Promise<Array<HintDTO>>;
+  readHint(problemId: string): Promise<HintDTO>;
 }

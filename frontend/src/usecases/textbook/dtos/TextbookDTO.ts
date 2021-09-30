@@ -1,11 +1,9 @@
 export class TextbookDTO {
-  readonly id: string;
+  readonly problemId: string;
   readonly body: string;
-  readonly page: string;
 
-  constructor(id: string, body: string, page: string) {
-    this.id = id;
+  constructor(problemId: string, body: string) {
+    this.problemId = problemId;
     this.body = body;
-    this.page = page;
   }
 }

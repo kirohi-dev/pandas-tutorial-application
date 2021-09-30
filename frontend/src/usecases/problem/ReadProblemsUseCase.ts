@@ -1,4 +1,4 @@
-import { TextbookDTO } from '../textbook/dtos/TextbookDTO'
+import { ProblemDTO } from './dtos/ProblemDTO'
 import { ProblemQueryRepository } from './ProblemQueryRepository';
 
 export class ReadProblemsUseCase {
@@ -7,8 +7,8 @@ export class ReadProblemsUseCase {
   constructor(repository: ProblemQueryRepository) {
     this.repository = repository;
   }
-  async readProblems(): Promise<Array<TextbookDTO>> {
-    const problems = await this.repository.readProblems();
-    return problems;
+  async readProblem(problemId: string): Promise<ProblemDTO> {
+    const problem = await this.repository.readProblem(problemId);
+    return problem;
   }
 }

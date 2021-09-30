@@ -11,9 +11,9 @@ export class HintHTTPQueryInfrastructure implements HintQueryRepository {
     this.http = http;
   }
 
-  async readHints(): Promise<Array<HintDTO>> {
-    const httpResponse = await this.http.get<HintDTOHTTPResponse[]>('aaaaaa');
+  async readHint(problemId: string): Promise<HintDTO> {
+    const httpResponse = await this.http.get<HintDTOHTTPResponse>(`/hints/${problemId}`);
     const factory = new HintDTOFactory();
-    return httpResponse.data.map(hint => factory.rebuildHintDTO(hint.id, hint.body, hint.page, hint.problemId))
+    return factory.rebuildHintDTO(httpResponse.data.problemId, httpResponse.data.body)
   }
 }

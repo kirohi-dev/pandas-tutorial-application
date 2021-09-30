@@ -1,5 +1,4 @@
 export interface TextbookDTOHTTPResponse {
-  id: string;
+  problemId: string;
   body: string;
-  page: string;
 }

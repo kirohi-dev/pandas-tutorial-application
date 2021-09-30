@@ -1,7 +1,7 @@
 import { ProblemDTO } from './ProblemDTO';
 
 export class ProblemDTOFactory {
-  rebuildProblemDTO(id: string, body: string, page: string) {
-    return new ProblemDTO(id, body, page);
+  rebuildProblemDTO(problem_id: string, body: string, length: number) {
+    return new ProblemDTO(problem_id, body, length);
   }
 }

@@ -1,11 +1,11 @@
 export class ProblemDTO {
-  readonly id: string;
+  readonly problemId: string;
   readonly body: string;
-  readonly page: string;
+  readonly length: number;
 
-  constructor(id: string, body: string, page: string) {
-    this.id = id;
+  constructor(id: string, body: string, length: number) {
+    this.problemId = id;
     this.body = body;
-    this.page = page;
+    this.length = length;
   }
 }

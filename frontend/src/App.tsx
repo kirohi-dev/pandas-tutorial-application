@@ -13,7 +13,7 @@ import { Calculation, ContentHeight } from './themes/height'
 import { Border } from './themes/colors'
 
 import { textbookUseCases, problemUseCases, hintUseCases } from './di';
-import { useHintsState } from './hooks/hintRecoil'
+import { useHintState } from './hooks/hintRecoil'
 import { ProblemDTO } from './usecases/problem/dtos/ProblemDTO'
 import { TextbookDTO } from './usecases/textbook/dtos/TextbookDTO'
 
@@ -55,32 +55,53 @@ const VerticalLine = styled.div`
 `
 
 const App: React.FC = () => {
-  const [hints, setHints] = useHintsState();
+  const [hint, setHint] = useHintState();
 
-  const [problems, setProblems] = useState<ProblemDTO[]>([]);
-  const [textbooks, setTextbooks] = useState<TextbookDTO[]>([]);
+  const [problem, setProblem] = useState<ProblemDTO | null>(null);
+  const [textbook, setTextbook] = useState<TextbookDTO | null>(null);
+
+
+  const [counter, setCounter] = useState<number>(1);
 
   useEffect(() => {
     const fetchFunc = async () => {
-      const textbooks = await textbookUseCases.readTextbooksUseCase.readTextbook();
-      const problems = await problemUseCases.readProblemsUseCase.readProblems();
-      const hints = await hintUseCases.readHintsUseCase.readHints();
-      setTextbooks(textbooks);
-      setProblems(problems);
-      setHints(hints);
+      const textbook = await textbookUseCases.readTextbooksUseCase.readTextbook(String(counter));
+      const problem = await problemUseCases.readProblemsUseCase.readProblem(String(counter));
+      const hint = await hintUseCases.readHintsUseCase.readHint(String(counter));
+      setTextbook(textbook);
+      setProblem(problem);
+      setHint(hint);
     }
     fetchFunc()
-  }, [])
+  }, [counter])
 
-  console.log(problems);
+  const onIncrement = () => {
+    if (problem && problem.length > counter) {
+      setCounter(counter + 1);
+    }
+  }
 
+
+  const onDecrement = () => {
+    if (1 < counter) {
+      setCounter(counter - 1);
+    }
+  }
 
   return (
       <Wrapper>
         <MainHeader />
         <ContentWrapper>
           <VerticalLine />
-          <ProblemWrapper><Problem body={problems[0].body}/></ProblemWrapper>
+        <ProblemWrapper>
+          <Problem
+            body={problem?.body || ''}
+            pageLength={problem?.length || 0}
+            pager={counter}
+            onIncrement={onIncrement}
+            onDecrement={onDecrement}
+          />
+        </ProblemWrapper>
           <VerticalLine />
           <EditorWrapper>
             <Editor />
@@ -88,10 +109,10 @@ const App: React.FC = () => {
           <VerticalLine />
           <TeachWrapper>
             <TextbookWrapper>
-              <Textbook />
+              <Textbook body={textbook?.body || ''}/>
             </TextbookWrapper>
             <HintWrapper>
-              <Hint />
+              <Hint body={hint?.body || ''}/>
             </HintWrapper>
           </TeachWrapper>
           <VerticalLine />

@@ -7,6 +7,10 @@ import { Calculation } from '../../themes/height';
 
 interface IProblem {
   body: string;
+  pager: number;
+  pageLength: number;
+  onIncrement: VoidFunction;
+  onDecrement: VoidFunction;
 }
 
 export const Problem: React.FC<IProblem> = (props) => {
@@ -14,7 +18,17 @@ export const Problem: React.FC<IProblem> = (props) => {
   const openedHeight = `calc(${Calculation.openBodyCalculation})`
   return (
     <>
-      <Content title="問題" iconComponent={<AnnouncementIcon />} body={props.body} openedHeight={openedHeight} closedHeight={closedHeight}/>
+      <Content
+        title="問題"
+        iconComponent={<AnnouncementIcon />}
+        body={props.body}
+        openedHeight={openedHeight}
+        closedHeight={closedHeight}
+        pager={props.pager}
+        pageLength={props.pageLength}
+        onIncrement={props.onIncrement}
+        onDecrement={props.onDecrement}
+      />
     </>
   )
 }

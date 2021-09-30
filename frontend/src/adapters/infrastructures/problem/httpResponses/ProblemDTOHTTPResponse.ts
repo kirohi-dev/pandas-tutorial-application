@@ -1,5 +1,5 @@
 export interface ProblemDTOHTTPResponse {
-  id: string;
+  problemId: string;
   body: string;
-  page: string;
+  length: number;
 }

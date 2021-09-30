@@ -11,9 +11,9 @@ export class ProblemHTTPQueryInfrastructure implements ProblemQueryRepository {
     this.http = http;
   }
 
-  async readProblems(): Promise<Array<ProblemDTO>> {
-    const httpResponse = await this.http.get<ProblemDTOHTTPResponse[]>('aaaaaa');
+  async readProblem(problemId: string): Promise<ProblemDTO> {
+    const httpResponse = await this.http.get<ProblemDTOHTTPResponse>(`/problems/${problemId}`);
     const factory = new ProblemDTOFactory();
-    return httpResponse.data.map(problem => factory.rebuildProblemDTO(problem.id, problem.body, problem.page))
+    return factory.rebuildProblemDTO(httpResponse.data.problemId, httpResponse.data.body, httpResponse.data.length)
   }
 }

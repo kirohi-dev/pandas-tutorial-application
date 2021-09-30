@@ -1,5 +1,5 @@
 import { TextbookDTO } from './dtos/TextbookDTO';
 
 export interface TextbookQueryRepository {
-  readTextbooks(): Promise<Array<TextbookDTO>>;
+  readTextbook(problemId: string): Promise<TextbookDTO>;
 }

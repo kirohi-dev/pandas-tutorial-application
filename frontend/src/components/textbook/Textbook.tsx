@@ -4,8 +4,11 @@ import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
 import { ContentHeight, Calculation } from '../../themes/height';
 
 
-export const Textbook: React.FC = () => {
-  const body = 'aaaaaaaaaaaaaaaaaa'
+interface ITextbook {
+  body: string;
+}
+
+export const Textbook: React.FC<ITextbook> = (props) => {
   const closedHeight = `calc(${Calculation.splitTwoClosedBodyCalculation})`;
   const openedHeight = `calc(${Calculation.openBodyCalculation})`
   const paddingBottom = `calc(${ContentHeight.betweenContentHeight} / 2)`
@@ -14,7 +17,7 @@ export const Textbook: React.FC = () => {
       <Content
         title="教科書"
         iconComponent={<ChromeReaderModeIcon />}
-        body={body}
+        body={props.body}
         openedHeight={openedHeight}
         closedHeight={closedHeight}
         paddingBottom={paddingBottom}

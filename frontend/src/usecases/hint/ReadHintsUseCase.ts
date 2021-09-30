@@ -7,8 +7,8 @@ export class ReadHintsUseCase {
   constructor(repository: HintQueryRepository) {
     this.repository = repository;
   }
-  async readHints(): Promise<Array<HintDTO>> {
-    const problems = await this.repository.readHints();
+  async readHint(problemId: string): Promise<HintDTO> {
+    const problems = await this.repository.readHint(problemId);
     return problems;
   }
 }

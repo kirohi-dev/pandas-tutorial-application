@@ -81,8 +81,12 @@ type ContentType = {
   body: string;
   closedHeight: string;
   openedHeight: string;
+  onIncrement?: VoidFunction;
+  onDecrement?: VoidFunction;
+  pager?: number;
+  pageLength?: number;
   paddingTop?: string;
-  paddingBottom?: string; 
+  paddingBottom?: string;
 }
 
 export const Content: React.FC<ContentType> = ({
@@ -91,6 +95,10 @@ export const Content: React.FC<ContentType> = ({
   body,
   closedHeight,
   openedHeight,
+  onIncrement,
+  onDecrement,
+  pager,
+  pageLength,
   paddingTop,
   paddingBottom,
 }) => {
@@ -107,9 +115,16 @@ export const Content: React.FC<ContentType> = ({
           {body}
         </BodyWrapper>
       </ContentWrapper>
-      <PagerWrapper>
-        <Pager />
-      </PagerWrapper>
+      {pager !== undefined && pageLength !== undefined && (
+        <PagerWrapper>
+          <Pager
+            pageLength={pageLength}
+            pager={pager}
+            onIncrement={() => { if (onIncrement !== undefined) onIncrement() }}
+            onDecrement={() => { if (onDecrement !== undefined) onDecrement() }}
+          />
+        </PagerWrapper>
+      )}
     </Wrapper>
   )
 }

@@ -3,7 +3,15 @@ import { HttpError } from './HTTPError';
 
 export type IHTTP  = AxiosInstance;
 
-axios.interceptors.response.use(
+
+const instance = axios.create({
+  baseURL: 'http://127.0.0.1:8000',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+instance.interceptors.response.use(
   response => response,
   async error => {
     if (axios.isAxiosError(error)) {
@@ -13,4 +21,4 @@ axios.interceptors.response.use(
   }
 );
 
-export { axios as HTTP };
+export { instance as HTTP };

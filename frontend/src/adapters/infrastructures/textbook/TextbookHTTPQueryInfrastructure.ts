@@ -11,9 +11,9 @@ export class TextbookHTTPQueryInfrastructure implements TextbookQueryRepository 
     this.http = http;
   }
 
-  async readTextbooks(): Promise<Array<TextbookDTO>> {
-    const httpResponse = await this.http.get<TextbookDTOHTTPResponse[]>('aaaaaa');
+  async readTextbook(problemId: string): Promise<TextbookDTO> {
+    const httpResponse = await this.http.get<TextbookDTOHTTPResponse>(`/textbooks/${problemId}`);
     const factory = new TextbookDTOFactory();
-    return httpResponse.data.map((textbook) => factory.rebuildTextbookDTO(textbook.id, textbook.body, textbook.page))
+    return factory.rebuildTextbookDTO(httpResponse.data.problemId, httpResponse.data.body)
   }
 }

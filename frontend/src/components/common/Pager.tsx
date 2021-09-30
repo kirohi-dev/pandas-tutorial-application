@@ -15,23 +15,36 @@ const ButtonWrapper = styled.div`
   width: 100px;
 `
 
-const Counter: React.FC = () => {
+
+interface ICounter {
+  pager: number;
+  pageLength: number;
+}
+
+const Counter: React.FC<ICounter> = (props) => {
   return (
     <>
-      1/2
+      {props.pager}/{props.pageLength}
     </>
   )
 }
 
-export const Pager: React.FC = () => {
+interface IPager {
+  pager: number;
+  pageLength: number;
+  onIncrement: VoidFunction;
+  onDecrement: VoidFunction;
+}
+
+export const Pager: React.FC<IPager> = (props) => {
   return (
     <Wrapper>
       <ButtonWrapper>
-       <Button innerComponent={<ArrowLeftIcon />} bgColor={'bgGray'} bgHoverColor={'bgFaintGray'} />
+       <Button innerComponent={<ArrowLeftIcon onClick={props.onDecrement}/>} bgColor={'bgGray'} bgHoverColor={'bgFaintGray'} />
       </ButtonWrapper>
-      <Counter />
+      <Counter pager={props.pager} pageLength={props.pageLength}/>
       <ButtonWrapper>
-       <Button innerComponent={<ArrowRightIcon />} bgColor={'bgGray'} bgHoverColor={'bgFaintGray'} />
+        <Button innerComponent={<ArrowRightIcon onClick={props.onIncrement} />} bgColor={'bgGray'} bgHoverColor={'bgFaintGray'}/>
       </ButtonWrapper>
     </Wrapper>
   );

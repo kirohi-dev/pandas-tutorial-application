@@ -1,19 +1,19 @@
 import { HintDTO } from '../usecases/hint/dtos/HintDTO';
 import { atom, useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
 
-const hintsAtom = atom<HintDTO[]>({
-  key: 'hints',
-  default: []
+const hintAtom = atom<HintDTO | null>({
+  key: 'hint',
+  default: null
 });
 
-export const useGetHints = () => {
-  return useRecoilValue(hintsAtom);
+export const useGetHint = () => {
+  return useRecoilValue(hintAtom);
 }
 
-export const useSetHints = () => {
-  return useSetRecoilState(hintsAtom);
+export const useSetHint = () => {
+  return useSetRecoilState(hintAtom);
 }
 
-export const useHintsState = () => {
-  return useRecoilState(hintsAtom);
+export const useHintState = () => {
+  return useRecoilState(hintAtom);
 }

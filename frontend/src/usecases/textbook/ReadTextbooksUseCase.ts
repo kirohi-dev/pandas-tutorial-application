@@ -7,8 +7,8 @@ export class ReadTextbooksUseCase {
   constructor(repository: TextbookQueryRepository) {
     this.repository = repository;
   }
-  async readTextbook(): Promise<Array<TextbookDTO>> {
-    const textbooks = await this.repository.readTextbooks();
+  async readTextbook(problemId: string): Promise<TextbookDTO> {
+    const textbooks = await this.repository.readTextbook(problemId);
     return textbooks;
   }
 }
